@@ -1,0 +1,32 @@
+{
+  "name": "opal-webprodigies-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.689.0",
+    "@aws-sdk/lib-storage": "^3.689.0",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.7.9",
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "fix-webm-duration": "^1.0.6",
+    "hound": "^1.0.5",
+    "openai": "^4.71.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
