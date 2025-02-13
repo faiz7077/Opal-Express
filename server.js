@@ -146,7 +146,7 @@ io.on("connection", (socket) => {
                     })
                     if(transcription){
                       console.log("🟢Came for transcription")
-                      console.log("ame for transcription")
+                      
 
                       const completion = await openai.chat.completions.create({
                         model: 'gpt-3.5-turbo',
@@ -159,7 +159,8 @@ io.on("connection", (socket) => {
                           },
                         ],
                       });
-                      console.log("Completion set hai", JSON.stringify(completion, null, 2));
+                    
+                      console.log("🟢Completion set hai", JSON.stringify(completion, null, 2));
 
                       // Testing
                       if (
