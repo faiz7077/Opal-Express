@@ -8,13 +8,17 @@ const { Readable } = require("stream");
 const axios = require("axios");
 const cloudinary = require("cloudinary").v2;
 const path = require("path");
-
+const OpenAi=require("openai")
+dotenv.config();
 const app = express();
 app.use(cors())
-dotenv.config();
+
 const server = http.createServer(app);
 
-
+//openai
+const openai = new OpenAi({
+  apiKey: process.env.OPEN_AI_KEY,
+})
 
 
 // // Set axios default headers
@@ -127,6 +131,47 @@ io.on("connection", (socket) => {
             }
 
             console.log("🟢 Video uploaded to Cloudinary:", result.secure_url);
+
+            //Transcript
+            if(processing.data.plan ==='PRO'){
+              fs.start('temp_upload/' + data.filename, async(err,stat)=>{
+                if(!err){
+                  if(stat.size<25000000){
+                    const transcription =await openai.audio.transcriptions.create({
+
+                      file:fs.createReadStream(`temp_upload/${data.filename}`),
+                      model:'whisper-1',
+                      response_format:'text',
+
+                    })
+                    if(transcription){
+                      const completion  = await openai.chat.completions.create({
+                        model:'gpt-3.5-turbo',
+                        response_format: {type: 'json_object'},
+                        messages: [
+                          {
+                            role:'system',
+                            content: `You are going to generate a title and a nice description using the speech to text transcription provided: transcription(${transcription})  
+                            and then return it in json format as {"title":<the title you gave>,"summary":<e summary you created>}`,
+                          },
+                        ],
+                      })
+                      const titleAndSummaryGenerated = await  axios.post(`${process.env.NEXT_API_HOST}recording/${data.userId}/transcribe`,
+                        {
+                          filename: data.filename,
+                          content: completion.choices[0].messsage.content, 
+                          transcript: transcription,
+
+                        }
+                      )
+                      if (titleAndSummaryGenerated.data.status!==200){
+                        console.log("🔴Error : Something Went Wrong with transcription title and description")
+                      }
+                    }
+                  }
+                }
+              })
+            }
             
             // Complete processing
             const stopProcessing = await axios.post(
