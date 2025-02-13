@@ -95,7 +95,7 @@ io.on("connection", (socket) => {
       const filePath = path.join(uploadDir, data.filename);
       
       // Verify file exists
-      console.log("came on File Check")
+      console.log("🟢Came on File Check")
       if (!fs.existsSync(filePath)) {
         throw new Error("Video file not found");
       }
