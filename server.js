@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
       }
       
       // Start processing
-      console.log("came on processing")
+      console.log("🟢Came on processing")
       const processing = await axios.post(
         `${process.env.NEXT_API_HOST}recording/${data.userId}/processing`,
         { filename: data.filename }
