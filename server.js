@@ -116,7 +116,7 @@ io.on("connection", (socket) => {
         cloud_name: cloudinary.config().cloud_name,
         api_key: cloudinary.config().api_key,
       });
-      console.log("Came for the upload")
+      console.log("🟢Came for the upload")
       
       const cloudinaryUpload = cloudinary.uploader.upload_stream(
         {
@@ -145,7 +145,8 @@ io.on("connection", (socket) => {
 
                     })
                     if(transcription){
-                      console.log("came for transcription")
+                      console.log("🟢Came for transcription")
+                      console.log("ame for transcription")
 
                       const completion = await openai.chat.completions.create({
                         model: 'gpt-3.5-turbo',
