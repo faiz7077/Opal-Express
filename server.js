@@ -110,7 +110,7 @@ io.on("connection", (socket) => {
       if (processing.data.status !== 200) {
         throw new Error("Failed to create processing file");
       }
-      console.log("Cloudinary Came")
+
       // Upload to Cloudinary
       console.log("🟢 Cloudinary Config:", {
         cloud_name: cloudinary.config().cloud_name,
