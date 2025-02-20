@@ -106,7 +106,7 @@ io.on("connection", (socket) => {
         `${process.env.NEXT_API_HOST}recording/${data.userId}/processing`,
         { filename: data.filename }
       );
-      console.log("Processing status  Came")
+
       if (processing.data.status !== 200) {
         throw new Error("Failed to create processing file");
       }
